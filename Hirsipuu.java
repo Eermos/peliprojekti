@@ -12,8 +12,8 @@ public class Hirsipuu {
     }
     
     public void hirtto(){
-        
-        
+        hp = 5;
+        Boolean gam = true;
         List<String> sanat = new ArrayList<>();
             String tiedosto = "Sanat.txt";
             
@@ -29,43 +29,55 @@ public class Hirsipuu {
 
         String sana = sanat.get(random.nextInt(sanat.size()));
 
-        int ei = 0;
-        System.out.println(sana);
+        
         List<Character> arvaukset = new ArrayList<>();
-        tulosta(sana, arvaukset);
+        tulosta(sana, arvaukset,gam);
         while(true){
-
-            Arvaus(sana,arvaukset,ei);
-
+            if(gam = false){
+                
+                break;
+            }else{
+                Arvaus(sana,arvaukset,gam);
+            }
+            
         }
 
     }
 
-    private void Arvaus(String sana, List<Character> arvaukset,int ei) {
-        System.out.println("Anna kirjain.");
-        String arvaus = lukija.nextLine();
-        arvaukset.add(arvaus.charAt(0));
-        if(!(sana.contains(arvaus))){
-            ei++;
+    private void Arvaus(String sana, List<Character> arvaukset,boolean gam) {
+        
+        if (gam = true){
+            System.out.println("Anna kirjain.");
+            String arvaus = lukija.nextLine();
+            arvaukset.add(arvaus.charAt(0));
+            if(!(sana.contains(arvaus))){
+ 
             hp--;
             System.out.println("Väärin");
+            hirtetty(hp);
         }
-        tulosta(sana, arvaukset);
-        System.out.println(ei);
+            tulosta(sana, arvaukset, gam);
+        }
     }
 
-    private  void tulosta(String sana, List<Character> arvaukset) {
-
+    private  void tulosta(String sana, List<Character> arvaukset,boolean gam) {
+        
+        String susburger = "";
         for(int i = 0; i < sana.length(); i++){
             if(arvaukset.contains(sana.charAt(i))){
-                System.out.print(sana.charAt(i));
+                susburger += (sana.charAt(i));
             }
             else{
-                System.out.print("-");
+                susburger += ("-");
             }
         }
-        System.out.println();
-
+        System.out.println(susburger);
+        if(!(susburger.contains("-"))){
+            System.out.println("onnistuit jossain");
+            gam = !gam;
+            System.out.println(gam);
+            menu.Menu();
+        }
     }
 
     public void hirtetty(int hp){
@@ -121,6 +133,11 @@ public class Hirsipuu {
             System.out.println("|       /\\");
             System.out.println("|");
             System.out.println("|");
+            System.out.println("Hävisit pelin lmao");
+            
+            menu.Menu();
+            hp = 5;
         }
+        
     }
 }
